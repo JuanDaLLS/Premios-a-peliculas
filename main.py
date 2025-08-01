@@ -34,7 +34,7 @@ def registrar_voto():
     
     if pq_votar in peliculas:
         peliculas[pq_votar]["votos"] += 1
-        print(f"Voto registrado para '{pq_votar}'. Total: {peliculas[pq_votar]['votos']}")
+        print(f"¡Gracias! Voto registrado para '{pq_votar}'. Total: {peliculas[pq_votar]['votos']}")
     else:
         print("No se encontró la película.")
 
@@ -45,14 +45,27 @@ def votes_counter():
     else:
         print("Película no encontrada.")
 
+def winner():
+    if not peliculas:
+        print("No hay películas para evaluar.")
+        return
+    max_votes = -1
+    peli_ganadora = ""
+    for nombre, datos in peliculas.items():
+        if datos["votos"] > max_votes:
+            max_votes = datos["votos"]
+            peli_ganadora = nombre
+    print(f"\n🎉 La película ganadora es '{peli_ganadora}' con {max_votes} votos.")
+
 def menu():
     while True:
         print("\n--- MENÚ ---")
         print("1) Registrar película")
         print("2) Ver películas")
         print("3) Registrar voto")
-        print("4) Consultar votos")
-        print("5) Salir")
+        print("4) Consultar votos por película")
+        print("5) Ver ganadora")
+        print("6) Salir")
         opcion = input("Elige una opción: ").strip()
         
         if opcion == "1":
@@ -64,6 +77,8 @@ def menu():
         elif opcion == "4":
             votes_counter()
         elif opcion == "5":
+            winner()
+        elif opcion == "6":
             print("Saliendo...")
             break
         else:
